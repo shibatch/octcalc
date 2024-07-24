@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QColor>
+#include <QFontDatabase>
 
 #include "octcore.hpp"
 
@@ -88,8 +89,12 @@ OctCalc::OctCalc(QWidget *parent, QApplication *app_) : QWidget(parent), app(app
     display->setPalette(pal);
   }
 
+#if defined(_WIN32)
   QFont font("Monospace");
   font.setStyleHint(QFont::TypeWriter);
+#else
+  QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+#endif
   font.setPointSize(display->font().pointSize() + 2);
   display->setFont(font);
 
@@ -256,7 +261,7 @@ void OctCalc::processButtonPress(const string &s) {
     showingResult = false;
     selectAll = true;
   } else if (s == "WEB") {
-    QDesktopServices::openUrl(QUrl("https://github.com/shibatch", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("https://github.com/shibatch/octcalc", QUrl::TolerantMode));
   } else if (s == "BS") {
     if (selectionStart == -1) {
       if (cursorPos > 0) {
@@ -448,18 +453,19 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
 #endif
   } else if (obj == this && event->type() == QEvent::Show) {
     int w = display->size().width();
-#if defined(_WIN32)
-    w -= 32;
-#elif 0
     w -= display->textMargins().left() + display->textMargins().right();
     w -= display->contentsMargins().left() + display->contentsMargins().right();
     w -= 8; // Hard coded in qt
-#else
-    w -= 28;
-#endif
+
+#if 0
     int cw = display->fontMetrics().boundingRect('0').width() +
       display->fontMetrics().leftBearing('0') + display->fontMetrics().rightBearing('0');
     displayWidth = w / cw;
+#else
+    string z = "";
+    while(display->fontMetrics().boundingRect(z.c_str()).width() < w) z += "0";
+    displayWidth = z.size() - 1;
+#endif
     displayBuffer.resize(displayWidth+10);
 
     display->setMaxLength(displayWidth);
