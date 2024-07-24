@@ -9,16 +9,16 @@ Original distribution site : https://github.com/shibatch/octcalc
 
 ### Introduction
 
-This application is a portable calculator application that runs on
-Windows, Linux, and Mac.  It can perform calculations and output
-results in 256-bit floating point numbers.  It can also evaluate
-C-like mathematical expressions.
+This is a portable calculator application that runs on Windows, Linux,
+and Mac.  It can perform calculations and output results in 256-bit
+floating point numbers.  It can also evaluate C-like mathematical
+expressions.
 
 
 ### Building on Linux and Mac
 
 1. Check out the source code from our GitHub repository :
-`git clone https://github.com/shibatch/octcalc`
+`git clone --recurse-submodules https://github.com/shibatch/octcalc`
 
 2. Make a separate directory to create an out-of-source build :
 `cd octcalc && mkdir build && cd build`
@@ -50,7 +50,7 @@ C-like mathematical expressions.
   20XX and move to the build directory.
 
 5. Check out the source code from our GitHub repository :
-`git clone https://github.com/shibatch/octcalc`
+`git clone --recurse-submodules https://github.com/shibatch/octcalc`
 
 6. Run the batch file for building with MSVC.
 `cd octcalc && winbuild-msvc.bat -DENABLE_WIX=True`
