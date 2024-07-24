@@ -50,7 +50,7 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
     set(ARGS ${ARGS} -DCMAKE_CXX_COMPILER:PATH=${CMAKE_CXX_COMPILER})
   endif()
 
-  if (TLFLOAT_SOURCE_DIR)
+  if (EXISTS "${TLFLOAT_SOURCE_DIR}")
     ExternalProject_Add(ext_tlfloat
       SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
       CMAKE_ARGS ${ARGS}
