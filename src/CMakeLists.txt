@@ -58,3 +58,10 @@ else()
     COMPONENT runtime
     )
 endif()
+
+add_executable(octcalc_test octgui.cpp main.cpp)
+target_compile_definitions(octcalc_test PRIVATE TEST=1)
+target_link_libraries(octcalc_test octcore)
+add_dependencies(octcalc_test ext_tlfloat)
+target_link_libraries(octcalc_test Qt6::Widgets Qt6::Test)
+add_test(NAME test_octcalc COMMAND octcalc_test -platform offscreen)

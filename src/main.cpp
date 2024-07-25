@@ -1,6 +1,6 @@
 int main_(int argc, char **argv);
 
-#if defined(_WIN32) && defined(DEBUG)
+#if defined(_WIN32) && !defined(DEBUG) && !defined(TEST)
 #include <vector>
 #include <windows.h>
 #include <stringapiset.h>

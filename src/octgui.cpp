@@ -72,6 +72,11 @@ private:
   bool showingResult = false;
 
   bool selectAll = false;
+
+#ifdef TEST
+public:
+  int doTest();
+#endif
 };
 
 OctCalc::OctCalc(QWidget *parent, QApplication *app_) : QWidget(parent), app(app_) {
@@ -201,7 +206,11 @@ void OctCalc::processButtonPress(const string &s) {
     if (!error) {
       if (modeHex) {
 	if (modeInt) {
-	  tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "0x%Qx", (tlfloat_int128_t)displayNumber);
+	  if (displayNumber <= -tlfloat_ldexpo(1, 127) || tlfloat_ldexpo(1, 127) <= displayNumber) {
+	    tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "OVERFLOW");
+	  } else {
+	    tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "0x%Qx", (tlfloat_int128_t)displayNumber);
+	  }
 	} else {
 	  if (tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "%Oa", displayNumber) > displayWidth) {
 	    for(int i=displayWidth;i>=0;i--) {
@@ -211,7 +220,11 @@ void OctCalc::processButtonPress(const string &s) {
 	}
       } else {
 	if (modeInt) {
-	  tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "%Qd", (tlfloat_int128_t)displayNumber);
+	  if (displayNumber <= -tlfloat_ldexpo(1, 127) || tlfloat_ldexpo(1, 127) <= displayNumber) {
+	    tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "OVERFLOW");
+	  } else {
+	    tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "%Qd", (tlfloat_int128_t)displayNumber);
+	  }
 	} else {
 	  for(int i=displayWidth > 70 ? 70 : displayWidth;i>=0;i--) {
 	    if (tlfloat_snprintf(displayBuffer.data(), displayBuffer.size()-1, "%.*Og", i, displayNumber) <= displayWidth) break;
@@ -499,6 +512,47 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
 
 //
 
+#ifdef TEST
+#include <QtTest/QTest>
+
+int OctCalc::doTest() {
+  try {
+    QTest::keyClicks(display.get(), "M_PI");
+    qDebug() << "0: " << display->text();
+    if (display->text() != QString("M_PI")) throw(runtime_error("0: key click \"M_PI\""));
+
+    QTest::keyClick(display.get(), Qt::Key_Enter);
+    qDebug() << "1: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("1: key click Key_Enter"));
+
+    QTest::mouseClick(buttons["M_PI"].get(), Qt::LeftButton);
+    qDebug() << "2: " << display->text();
+    if (display->text() != QString("M_PI")) throw(runtime_error("2: mouse click \"M_PI\""));
+
+    QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
+    qDebug() << "3: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("3: mouse click ENTER"));
+
+    QTest::keyClicks(display.get(), "4*(4*atan(1/5) - atan(1/239))");
+    qDebug() << "4: " << display->text();
+    if (display->text() != QString("4*(4*atan(1/5) - atan(1/239))")) throw(runtime_error("4: key clicks"));
+
+    QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
+    qDebug() << "5: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("5: mouse click ENTER"));
+  } catch(exception &ex) {
+    qDebug() << ex.what();
+    qDebug() << "Test failed";
+    return -1;
+  }
+
+  qDebug() << "Test passed";
+  return 0;
+}
+#endif
+
+//
+
 int main_(int argc, char **argv) {
   QApplication::setDesktopSettingsAware(false);
   QApplication::setStyle("Fusion");
@@ -506,5 +560,9 @@ int main_(int argc, char **argv) {
   OctCalc calc(nullptr, &app);
   app.installEventFilter(&calc);
   calc.show();
+#if !defined(TEST)
   return app.exec();
+#else
+  return calc.doTest();
+#endif
 }
