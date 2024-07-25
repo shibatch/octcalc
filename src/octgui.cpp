@@ -86,7 +86,6 @@ OctCalc::OctCalc(QWidget *parent, QApplication *app_) : QWidget(parent), app(app
   display = make_shared<QLineEdit>("");
   display->setReadOnly(false);
   display->setAlignment(Qt::AlignRight);
-  display->setMaxLength(72);
   {
     QPalette pal = palette();
     pal.setColor(QPalette::Highlight, QColor(220, 220, 220));
@@ -269,10 +268,6 @@ void OctCalc::processButtonPress(const string &s) {
     selectAll = true;
   } else if (s == "COPY") {
     app->clipboard()->setText(displayString.c_str());
-  } else if (s == "PASTE") {
-    displayString = app->clipboard()->text().toStdString();
-    showingResult = false;
-    selectAll = true;
   } else if (s == "WEB") {
     QDesktopServices::openUrl(QUrl("https://github.com/shibatch/octcalc", QUrl::TolerantMode));
   } else if (s == "BS") {
@@ -292,6 +287,7 @@ void OctCalc::processButtonPress(const string &s) {
     histPos = -1;
   } else {
     string t = s;
+    if (s == "PASTE") t = app->clipboard()->text().toStdString();
     if (s == "&&") t = "&";
     if (s == "rem") t = "remainder";
     if (t[0] >= 'a' && t[0] <= 'z' && t.size() > 1) t += "(";
@@ -481,7 +477,6 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
 #endif
     displayBuffer.resize(displayWidth+10);
 
-    display->setMaxLength(displayWidth);
     label->setMaximumWidth(w);
 
     for(auto b : buttons) {
