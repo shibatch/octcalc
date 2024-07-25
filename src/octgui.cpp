@@ -268,6 +268,8 @@ void OctCalc::processButtonPress(const string &s) {
     selectAll = true;
   } else if (s == "COPY") {
     app->clipboard()->setText(displayString.c_str());
+  } else if (s == "LIC.") {
+    QDesktopServices::openUrl(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + "/../share/octcalc/licenses.txt"));
   } else if (s == "WEB") {
     QDesktopServices::openUrl(QUrl("https://github.com/shibatch/octcalc", QUrl::TolerantMode));
   } else if (s == "BS") {
@@ -316,7 +318,7 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["erf"]->setText("erfc");
     buttons["gcd"]->setText("lcm");
     if (modeAlt) {
-      buttons["PASTE"]->setText("WEB");
+      buttons["PASTE"]->setText("LIC.");
       buttons["hypot"]->setText("hypot");
       buttons["trunc"]->setText("ceil");
       buttons["asinh"]->setText("asinh");
@@ -491,6 +493,7 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
 #ifdef DEBUG
     processButtonPress(string("0xxxxxxxxx1xxxxxxxxx2xxxxxxxxx3xxxxxxxxx4xxxxxxxxx5xxxxxxxxx6xxxxxxxxx7xxxxxxxxx8xxxxxxxxx9"));
 
+    qDebug() << "path = " << QCoreApplication::applicationDirPath();
     qDebug() << "display->size().width() = " << display->size().width();
     qDebug() << "display->textMargins().left() = " << display->textMargins().left();
     qDebug() << "display->contentsMargins().left() = " << display->contentsMargins().left();
