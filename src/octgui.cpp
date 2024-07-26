@@ -489,20 +489,6 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
     }
 
     processButtonPress("SHOW");
-
-#ifdef DEBUG
-    processButtonPress(string("0xxxxxxxxx1xxxxxxxxx2xxxxxxxxx3xxxxxxxxx4xxxxxxxxx5xxxxxxxxx6xxxxxxxxx7xxxxxxxxx8xxxxxxxxx9"));
-
-    qDebug() << "path = " << QCoreApplication::applicationDirPath();
-    qDebug() << "display->size().width() = " << display->size().width();
-    qDebug() << "display->textMargins().left() = " << display->textMargins().left();
-    qDebug() << "display->contentsMargins().left() = " << display->contentsMargins().left();
-    qDebug() << "w = " << w;
-    qDebug() << "display->fontMetrics().boundingRect('0').width() = " << display->fontMetrics().boundingRect('0').width();
-    qDebug() << "display->fontMetrics().leftBearing('0') = " << display->fontMetrics().leftBearing('0');
-    qDebug() << "display->fontMetrics().rightBearing('0') = " << display->fontMetrics().rightBearing('0');
-    qDebug() << "length of display : " << displayWidth;
-#endif
   }
 
   return QObject::eventFilter(obj, event);
@@ -538,6 +524,21 @@ int OctCalc::doTest() {
     QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
     qDebug() << "5: " << display->text();
     if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("5: mouse click ENTER"));
+
+    QTest::mouseClick(buttons["HEX"].get(), Qt::LeftButton);
+    qDebug() << "6: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "0x1.921fb5") throw(runtime_error("6: mouse click HEX"));
+
+    QTest::mouseClick(buttons["PASTE"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["HEX"].get(), Qt::LeftButton);
+    QTest::keyClick(display.get(), Qt::Key_Up);
+    QTest::keyClick(display.get(), Qt::Key_Right);
+    QTest::mouseClick(buttons["+"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["PASTE"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
+    qDebug() << "7: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "6.28318530") throw(runtime_error("7: composite operation"));
   } catch(exception &ex) {
     qDebug() << ex.what();
     qDebug() << "Test failed";

@@ -47,10 +47,6 @@ namespace octcore {
 
       ret.pos = (int)lastpos;
 
-#ifdef DEBUG
-      cout << "[" << lastpos << ":" << ret.first << ":\"" << ret.second << "\"]";
-#endif
-
       return ret;
     }
 

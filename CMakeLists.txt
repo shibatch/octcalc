@@ -62,7 +62,7 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
     find_package(Git REQUIRED)
     ExternalProject_Add(ext_tlfloat
       GIT_REPOSITORY https://github.com/shibatch/tlfloat
-      GIT_TAG 3ce0fcbb7c32565cf7553cbddd1db2fc03fa4534
+      GIT_TAG d3e42aeebbe42d49c929f8aa85e9074cfd04a2a6
       SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
       CMAKE_ARGS ${ARGS}
       )
