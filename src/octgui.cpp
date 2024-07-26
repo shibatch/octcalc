@@ -10,8 +10,11 @@
 #include <QToolButton>
 #include <QColor>
 #include <QFontDatabase>
+#include <QIcon>
+#include <QPaintDevice>
 
 #include "octcore.hpp"
+#include "octcalc64x64.hpp"
 
 using namespace std;
 
@@ -46,6 +49,9 @@ private:
   const QApplication *app;
   bool eventFilter(QObject *obj, QEvent *event);
   void processButtonPress(const string &s);
+
+  const QPixmap octPixmap = QPixmap::fromImage(QImage::fromData(octcalc64x64, sizeof(octcalc64x64)));
+  const QIcon octIcon = QIcon(octPixmap);
 
   shared_ptr<Button> createButton(const QString &text, const QColor& color = QColor());
 
@@ -319,6 +325,10 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["gcd"]->setText("lcm");
     if (modeAlt) {
       buttons["PASTE"]->setText("WEB");
+      buttons["PASTE"]->setIcon(octIcon);
+      int h = buttons["PASTE"]->size().height();
+      buttons["PASTE"]->setIconSize(QSize(h*2/3, h*2/3));
+      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonIconOnly);
       buttons["hypot"]->setText("hypot");
       buttons["trunc"]->setText("ceil");
       buttons["asinh"]->setText("asinh");
@@ -332,6 +342,8 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["="  ]->setText("*=");
     } else {
       buttons["PASTE"]->setText("PASTE");
+      buttons["PASTE"]->setIcon(QIcon());
+      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
       buttons["hypot"]->setText("cbrt");
       buttons["trunc"]->setText("rint");
       buttons["asinh"]->setText("asin");
@@ -354,6 +366,8 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["gcd"]->setText("gcd");
     if (modeAlt) {
       buttons["PASTE"]->setText("LIC.");
+      buttons["PASTE"]->setIcon(QIcon());
+      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
       buttons["hypot"]->setText("pow");
       buttons["trunc"]->setText("floor");
       buttons["asinh"]->setText("sinh");
@@ -367,6 +381,8 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["="  ]->setText("-=");
     } else {
       buttons["PASTE"]->setText("COPY");
+      buttons["PASTE"]->setIcon(QIcon());
+      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
       buttons["hypot"]->setText("sqrt");
       buttons["trunc"]->setText("trunc");
       buttons["asinh"]->setText("sin");
