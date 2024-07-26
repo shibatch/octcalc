@@ -140,11 +140,17 @@ OctCalc::OctCalc(QWidget *parent, QApplication *app_) : QWidget(parent), app(app
   typedef struct { const char *label; int x, y, w, h; QColor color; } butelm;
   const QColor dc = QColor(160, 160, 160);
   static butelm butdefs[] = {
-    { "PASTE", 0, 3, 1, 1, green }, { "log10" , 2, 3, 1, 1 }, { "asinh", 3, 3, 1, 1 },
-    { "HEX"  , 0, 4, 1, 1, green }, { "exp10" , 2, 4, 1, 1 }, { "acosh", 3, 4, 1, 1 },
-    { "DOWN" , 0, 5, 1, 1, green }, { "erf"   , 2, 5, 1, 1 }, { "atanh", 3, 5, 1, 1 },
-    { "ALT"  , 0, 6, 1, 1, green }, { "M_PI"  , 2, 6, 1, 1 }, { "tgamma" , 3, 6, 1, 1 },
-    { "SHIFT", 0, 7, 1, 1, green }, { "x"     , 2, 7, 1, 1 }, { "="    , 3, 7, 1, 1 },
+    { "PASTE", 0, 3, 1, 1, green }, 
+    { "HEX"  , 0, 4, 1, 1, green }, 
+    { "DOWN" , 0, 5, 1, 1, green }, 
+    { "ALT"  , 0, 6, 1, 1, green }, 
+    { "SHIFT", 0, 7, 1, 1, green }, 
+
+    { "log10" , 2, 3, 1, 1 }, { "asinh"  , 3, 3, 1, 1 },
+    { "exp10" , 2, 4, 1, 1 }, { "acosh"  , 3, 4, 1, 1 },
+    { "erf"   , 2, 5, 1, 1 }, { "atanh"  , 3, 5, 1, 1 },
+    { "M_PI"  , 2, 6, 1, 1 }, { "tgamma" , 3, 6, 1, 1 },
+    { "x"     , 2, 7, 1, 1 }, { "="      , 3, 7, 1, 1 },
 
     { "~"  , 5, 3, 1, 1 }, { "<<", 6, 3, 1, 1     }, { ">>", 7, 3, 1, 1     },
     { "&&" , 5, 4, 1, 1 }, { "0x", 6, 4, 1, 1     }, { "p" , 7, 4, 1, 1     },
@@ -242,14 +248,16 @@ void OctCalc::processButtonPress(const string &s) {
   } else if (s == "" || s == "SHOW") {
     // Key press on display
     showingResult = false;
-  } else if (s == "CE") {
+  } else if (s == "CE" || s == "Escape") {
     displayString = "";
     displayNumber = 0;
+    selectionStart = -1;
     showingResult = false;
     histPos = -1;
   } else if (s == "AC") {
     displayString = "";
     displayNumber = 0;
+    selectionStart = -1;
     showingResult = false;
     octCore.clear();
     history.clear();
@@ -258,7 +266,7 @@ void OctCalc::processButtonPress(const string &s) {
     modeShift = !modeShift;
   } else if (s == "ALT") {
     modeAlt = !modeAlt;
-  } else if (s == "Up" || s == "UP") {
+  } else if (s == "PageUp" || s == "UP") {
     if (histPos == -1) {
       histPos = int(history.size()) - 1;
     } else if (histPos > 0) {
@@ -267,7 +275,7 @@ void OctCalc::processButtonPress(const string &s) {
     if (histPos >= 0 && histPos < history.size()) displayString = history[histPos];
     showingResult = false;
     selectAll = true;
-  } else if (s == "Down" || s == "DOWN") {
+  } else if (s == "PageDown" || s == "DOWN") {
     if (histPos != -1 && histPos < history.size() - 1) histPos++;
     if (histPos >= 0 && histPos < history.size()) displayString = history[histPos];
     showingResult = false;
@@ -429,9 +437,9 @@ void OctCalc::processButtonPress(const string &s) {
 }
 
 bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
-  if (shuttingDown) return QObject::eventFilter(obj, event);
-
   static string validKeys = "0123456789aAbBcCdDeEfF+-*/^=pPxX()%";
+
+  if (shuttingDown) return QObject::eventFilter(obj, event);
 
   if (obj == display.get()) displayString = display->text().toStdString();
   if (obj == label.get()) subdisplayString = label->text().toStdString();
@@ -442,14 +450,11 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
     qDebug() << "Keypress : " << keyEvent->key() << " : " << (char)keyEvent->key() << " from " << obj;
 #endif
     switch(keyEvent->key()) {
-    case Qt::Key_Backspace: processButtonPress("Backspace"); return true;
     case Qt::Key_Enter: processButtonPress("Enter"); return true;
     case Qt::Key_Return: processButtonPress("Return"); return true;
-    case Qt::Key_Delete: processButtonPress("Delete"); return true;
-    case Qt::Key_Home: processButtonPress("Home"); return true;
     case Qt::Key_Escape: processButtonPress("Escape"); return true;
-    case Qt::Key_Up: processButtonPress("Up"); return true;
-    case Qt::Key_Down: processButtonPress("Down"); return true;
+    case Qt::Key_PageUp: processButtonPress("PageUp"); return true;
+    case Qt::Key_PageDown: processButtonPress("PageDown"); return true;
 
     default: 
       if ((int(keyEvent->key()) & ~0xff) == 0 &&
@@ -466,18 +471,30 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
     switch(keyEvent->key()) {
     case Qt::Key_Enter: processButtonPress("Enter"); return true;
     case Qt::Key_Return: processButtonPress("Return"); return true;
-    case Qt::Key_Home: processButtonPress("Home"); return true;
-    case Qt::Key_Up: processButtonPress("Up"); return true;
-    case Qt::Key_Down: processButtonPress("Down"); return true;
+    case Qt::Key_Escape: processButtonPress("Escape"); return true;
+    case Qt::Key_PageUp: case Qt::Key_Up: processButtonPress("PageUp"); return true;
+    case Qt::Key_PageDown: case Qt::Key_Down: processButtonPress("PageDown"); return true;
     }
     processButtonPress("");
   } else if (event->type() == QEvent::MouseButtonRelease) {
-    QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     Button *clickedButton = dynamic_cast<Button *>(obj);
-    if (clickedButton) processButtonPress(clickedButton->text().toStdString());
 #ifdef DEBUG
     if (clickedButton) qDebug() << "MouseButtonRelease : " << clickedButton->text().toStdString().c_str();
 #endif
+    if (clickedButton) processButtonPress(clickedButton->text().toStdString());
+  } else if (event->type() == QEvent::KeyPress) {
+    QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    switch(keyEvent->key()) {
+    case ' ': {
+      Button *clickedButton = dynamic_cast<Button *>(obj);
+      if (clickedButton) processButtonPress(clickedButton->text().toStdString());
+      break;
+    }
+    case Qt::Key_Home: {
+      QTimer::singleShot(0, this, [this]{ display.get()->setFocus(); });
+      break;
+    }
+    }
   } else if (obj == this && event->type() == QEvent::Show) {
     int w = display->size().width();
     w -= display->textMargins().left() + display->textMargins().right();
@@ -547,7 +564,7 @@ int OctCalc::doTest() {
 
     QTest::mouseClick(buttons["PASTE"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["HEX"].get(), Qt::LeftButton);
-    QTest::keyClick(display.get(), Qt::Key_Up);
+    QTest::keyClick(display.get(), Qt::Key_PageUp);
     QTest::keyClick(display.get(), Qt::Key_Right);
     QTest::mouseClick(buttons["+"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
