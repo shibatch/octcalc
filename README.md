@@ -49,11 +49,13 @@ expressions.
 4. Create a build directory, launch Developer Command Prompt for VS
   20XX and move to the build directory.
 
-5. Check out the source code from our GitHub repository :
+5. Set path : `path %PATH%;"c:\opt\qt6\bin"`
+
+6. Check out the source code from our GitHub repository :
 `git clone --recurse-submodules https://github.com/shibatch/octcalc`
 
-6. Run the batch file for building with MSVC.
-`cd octcalc && winbuild-msvc.bat -DENABLE_WIX=True`
+7. Run the batch file for building with MSVC.
+`cd octcalc && winbuild-msvc.bat -DCMAKE_PREFIX_PATH=c:/opt/qt6 -DENABLE_WIX=True`
 
 
 ### License

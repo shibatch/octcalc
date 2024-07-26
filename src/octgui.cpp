@@ -318,7 +318,7 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["erf"]->setText("erfc");
     buttons["gcd"]->setText("lcm");
     if (modeAlt) {
-      buttons["PASTE"]->setText("LIC.");
+      buttons["PASTE"]->setText("WEB");
       buttons["hypot"]->setText("hypot");
       buttons["trunc"]->setText("ceil");
       buttons["asinh"]->setText("asinh");
@@ -353,7 +353,7 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["erf"]->setText("erf");
     buttons["gcd"]->setText("gcd");
     if (modeAlt) {
-      buttons["PASTE"]->setText("WEB");
+      buttons["PASTE"]->setText("LIC.");
       buttons["hypot"]->setText("pow");
       buttons["trunc"]->setText("floor");
       buttons["asinh"]->setText("sinh");
