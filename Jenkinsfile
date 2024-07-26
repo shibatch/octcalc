@@ -13,7 +13,7 @@ pipeline {
 		     	 bat """
 			 call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat"
 			 if not %ERRORLEVEL% == 0 exit /b %ERRORLEVEL%
-			 path %PATH%;"c:\opt\qt6\bin"
+			 path %PATH%;"c:\\opt\\qt6\\bin"
 			 call "winbuild-msvc.bat" -DCMAKE_PREFIX_PATH=c:/opt/qt6 -DENABLE_WIX=TRUE -DSUPPRESS_WIX_VALIDATION=TRUE
 			 if not %ERRORLEVEL% == 0 exit /b %ERRORLEVEL%
 			 ctest -j %NUMBER_OF_PROCESSORS% --output-on-failure
@@ -31,7 +31,7 @@ pipeline {
 		     	 bat """
 			 call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat"
 			 if not %ERRORLEVEL% == 0 exit /b %ERRORLEVEL%
-			 path %PATH%;"c:\opt\qt6\bin"
+			 path %PATH%;"c:\\opt\\qt6\\bin"
 			 call "winbuild-clang.bat" -DCMAKE_PREFIX_PATH=c:/opt/qt6 -DENABLE_WIX=TRUE -DSUPPRESS_WIX_VALIDATION=TRUE
 			 if not %ERRORLEVEL% == 0 exit /b %ERRORLEVEL%
 			 ctest -j %NUMBER_OF_PROCESSORS% --output-on-failure
