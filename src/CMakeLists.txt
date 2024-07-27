@@ -7,7 +7,7 @@ if (WIN32)
   target_link_libraries(octcalc octcore Qt6::Widgets)
   add_dependencies(octcalc ext_tlfloat)
 
-  if (ENABLE_WIX)
+  if (ENABLE_WIX OR INSTALL_QT)
     add_custom_command(TARGET octcalc POST_BUILD
       COMMAND "${CMAKE_COMMAND}" -E remove_directory "${CMAKE_BINARY_DIR}/qtDeploy/"
       COMMAND "${WINDEPLOYQT_EXECUTABLE}"
