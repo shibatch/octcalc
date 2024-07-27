@@ -140,7 +140,7 @@ OctCalc::OctCalc(QWidget *parent, QApplication *app_) : QWidget(parent), app(app
   typedef struct { const char *label; int x, y, w, h; QColor color; } butelm;
   const QColor dc = QColor(160, 160, 160);
   static butelm butdefs[] = {
-    { "PASTE", 0, 3, 1, 1, green }, 
+    { "License", 0, 3, 1, 1, green }, 
     { "HEX"  , 0, 4, 1, 1, green }, 
     { "DOWN" , 0, 5, 1, 1, green }, 
     { "ALT"  , 0, 6, 1, 1, green }, 
@@ -282,7 +282,7 @@ void OctCalc::processButtonPress(const string &s) {
     selectAll = true;
   } else if (s == "COPY") {
     app->clipboard()->setText(displayString.c_str());
-  } else if (s == "LIC.") {
+  } else if (s == "License") {
     QDesktopServices::openUrl(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + "/../share/octcalc/licenses.txt"));
   } else if (s == "WEB") {
     QDesktopServices::openUrl(QUrl("https://github.com/shibatch/octcalc", QUrl::TolerantMode));
@@ -332,11 +332,11 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["erf"]->setText("erfc");
     buttons["gcd"]->setText("lcm");
     if (modeAlt) {
-      buttons["PASTE"]->setText("WEB");
-      buttons["PASTE"]->setIcon(octIcon);
-      int h = buttons["PASTE"]->size().height();
-      buttons["PASTE"]->setIconSize(QSize(h*2/3, h*2/3));
-      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonIconOnly);
+      buttons["License"]->setText("WEB");
+      buttons["License"]->setIcon(octIcon);
+      int h = buttons["License"]->size().height();
+      buttons["License"]->setIconSize(QSize(h*2/3, h*2/3));
+      buttons["License"]->setToolButtonStyle(Qt::ToolButtonIconOnly);
       buttons["hypot"]->setText("hypot");
       buttons["trunc"]->setText("ceil");
       buttons["asinh"]->setText("asinh");
@@ -349,9 +349,9 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["x"  ]->setText("w");
       buttons["="  ]->setText("*=");
     } else {
-      buttons["PASTE"]->setText("PASTE");
-      buttons["PASTE"]->setIcon(QIcon());
-      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
+      buttons["License"]->setText("PASTE");
+      buttons["License"]->setIcon(QIcon());
+      buttons["License"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
       buttons["hypot"]->setText("cbrt");
       buttons["trunc"]->setText("rint");
       buttons["asinh"]->setText("asin");
@@ -373,9 +373,9 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["erf"]->setText("erf");
     buttons["gcd"]->setText("gcd");
     if (modeAlt) {
-      buttons["PASTE"]->setText("LIC.");
-      buttons["PASTE"]->setIcon(QIcon());
-      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
+      buttons["License"]->setText("License");
+      buttons["License"]->setIcon(QIcon());
+      buttons["License"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
       buttons["hypot"]->setText("pow");
       buttons["trunc"]->setText("floor");
       buttons["asinh"]->setText("sinh");
@@ -388,9 +388,9 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["x"  ]->setText("z");
       buttons["="  ]->setText("-=");
     } else {
-      buttons["PASTE"]->setText("COPY");
-      buttons["PASTE"]->setIcon(QIcon());
-      buttons["PASTE"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
+      buttons["License"]->setText("COPY");
+      buttons["License"]->setIcon(QIcon());
+      buttons["License"]->setToolButtonStyle(Qt::ToolButtonTextOnly);
       buttons["hypot"]->setText("sqrt");
       buttons["trunc"]->setText("trunc");
       buttons["asinh"]->setText("sin");
@@ -562,13 +562,13 @@ int OctCalc::doTest() {
     qDebug() << "6: " << display->text();
     if (display->text().toStdString().substr(0, 10) != "0x1.921fb5") throw(runtime_error("6: mouse click HEX"));
 
-    QTest::mouseClick(buttons["PASTE"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["License"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["HEX"].get(), Qt::LeftButton);
     QTest::keyClick(display.get(), Qt::Key_PageUp);
     QTest::keyClick(display.get(), Qt::Key_Right);
     QTest::mouseClick(buttons["+"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
-    QTest::mouseClick(buttons["PASTE"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["License"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
     qDebug() << "7: " << display->text();
     if (display->text().toStdString().substr(0, 10) != "6.28318530") throw(runtime_error("7: composite operation"));
