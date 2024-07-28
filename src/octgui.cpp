@@ -147,7 +147,7 @@ OctCalc::OctCalc(QWidget *parent, QApplication *app_) : QWidget(parent), app(app
     { "SHIFT", 0, 7, 1, 1, green }, 
 
     { "log10" , 2, 3, 1, 1 }, { "asinh"  , 3, 3, 1, 1 },
-    { "exp10" , 2, 4, 1, 1 }, { "acosh"  , 3, 4, 1, 1 },
+    { "expm1" , 2, 4, 1, 1 }, { "acosh"  , 3, 4, 1, 1 },
     { "erf"   , 2, 5, 1, 1 }, { "atanh"  , 3, 5, 1, 1 },
     { "M_PI"  , 2, 6, 1, 1 }, { "tgamma" , 3, 6, 1, 1 },
     { "x"     , 2, 7, 1, 1 }, { "="      , 3, 7, 1, 1 },
@@ -343,7 +343,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["acosh"]->setText("acosh");
       buttons["atanh"]->setText("atanh");
       buttons["log10"]->setText("log1p");
-      buttons["exp10"]->setText("expm1");
+      buttons["expm1"]->setText("expm1");
       buttons["tgamma"]->setText("tgamma");
       buttons["CE" ]->setText("AC");
       buttons["x"  ]->setText("w");
@@ -358,7 +358,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["acosh"]->setText("acos");
       buttons["atanh"]->setText("atan");
       buttons["log10"]->setText("log10");
-      buttons["exp10"]->setText("exp10");
+      buttons["expm1"]->setText("exp10");
       buttons["tgamma"]->setText("fabs");
       buttons["CE" ]->setText("CE");
       buttons["x"  ]->setText("y");
@@ -382,7 +382,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["acosh"]->setText("cosh");
       buttons["atanh"]->setText("tanh");
       buttons["log10"]->setText("log2");
-      buttons["exp10"]->setText("exp2");
+      buttons["expm1"]->setText("exp2");
       buttons["tgamma"]->setText("tgamma");
       buttons["CE" ]->setText("CE");
       buttons["x"  ]->setText("z");
@@ -397,7 +397,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["acosh"]->setText("cos");
       buttons["atanh"]->setText("tan");
       buttons["log10"]->setText("log");
-      buttons["exp10"]->setText("exp");
+      buttons["expm1"]->setText("exp");
       buttons["tgamma"]->setText("atan2");
       buttons["CE" ]->setText("CE");
       buttons["x"  ]->setText("x");
@@ -534,33 +534,36 @@ bool OctCalc::eventFilter(QObject *obj, QEvent *event) {
 
 int OctCalc::doTest() {
   try {
+    qDebug() << "0: displayWidth = " << displayWidth;
+    if (displayWidth < 50) throw(runtime_error("0: displayWidth"));
+
     QTest::keyClicks(display.get(), "M_PI");
-    qDebug() << "0: " << display->text();
-    if (display->text() != QString("M_PI")) throw(runtime_error("0: key click \"M_PI\""));
+    qDebug() << "1: " << display->text();
+    if (display->text() != QString("M_PI")) throw(runtime_error("1: key click \"M_PI\""));
 
     QTest::keyClick(display.get(), Qt::Key_Enter);
-    qDebug() << "1: " << display->text();
-    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("1: key click Key_Enter"));
+    qDebug() << "2: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("2: key click Key_Enter"));
 
     QTest::mouseClick(buttons["M_PI"].get(), Qt::LeftButton);
-    qDebug() << "2: " << display->text();
-    if (display->text() != QString("M_PI")) throw(runtime_error("2: mouse click \"M_PI\""));
+    qDebug() << "3: " << display->text();
+    if (display->text() != QString("M_PI")) throw(runtime_error("3: mouse click \"M_PI\""));
 
     QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
-    qDebug() << "3: " << display->text();
-    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("3: mouse click ENTER"));
+    qDebug() << "4: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("4: mouse click ENTER"));
 
     QTest::keyClicks(display.get(), "4*(4*atan(1/5) - atan(1/239))");
-    qDebug() << "4: " << display->text();
-    if (display->text() != QString("4*(4*atan(1/5) - atan(1/239))")) throw(runtime_error("4: key clicks"));
+    qDebug() << "5: " << display->text();
+    if (display->text() != QString("4*(4*atan(1/5) - atan(1/239))")) throw(runtime_error("5: key clicks"));
 
     QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
-    qDebug() << "5: " << display->text();
-    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("5: mouse click ENTER"));
+    qDebug() << "6: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "3.14159265") throw(runtime_error("6: mouse click ENTER"));
 
     QTest::mouseClick(buttons["HEX"].get(), Qt::LeftButton);
-    qDebug() << "6: " << display->text();
-    if (display->text().toStdString().substr(0, 10) != "0x1.921fb5") throw(runtime_error("6: mouse click HEX"));
+    qDebug() << "7: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "0x1.921fb5") throw(runtime_error("7: mouse click HEX"));
 
     QTest::mouseClick(buttons["License"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["HEX"].get(), Qt::LeftButton);
@@ -570,8 +573,59 @@ int OctCalc::doTest() {
     QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["License"].get(), Qt::LeftButton);
     QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
-    qDebug() << "7: " << display->text();
-    if (display->text().toStdString().substr(0, 10) != "6.28318530") throw(runtime_error("7: composite operation"));
+    qDebug() << "8: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "6.28318530") throw(runtime_error("8: composite operation"));
+
+    QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["asinh"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["ALT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["asinh"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["ALT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["asinh"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["SHIFT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["ALT"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["asinh"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["."].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons["1"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons[")"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons[")"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons[")"].get(), Qt::LeftButton);
+    QTest::mouseClick(buttons[")"].get(), Qt::LeftButton);
+    qDebug() << "9: " << display->text();
+    if (display->text().toStdString() != "sin(asinh(asin(sinh(.1))))") throw(runtime_error("9: composite operation"));
+    QTest::mouseClick(buttons["ENTER"].get(), Qt::LeftButton);
+    qDebug() << "9: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "0.10000000") throw(runtime_error("9: composite operation"));
+
+    display.get()->setFocus();
+    QTimer::singleShot(0, this, [this]{ display.get()->setFocus(); });
+    for(int i=0;i<100;i++) {
+      QCoreApplication::processEvents();
+      if (QApplication::focusWidget() != nullptr) break;
+    }
+    if (QApplication::focusWidget() == nullptr) throw(runtime_error("10: setFocus"));
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Home);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Space);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Space);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab, Qt::ShiftModifier);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab, Qt::ShiftModifier);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab, Qt::ShiftModifier);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Space);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab, Qt::ShiftModifier);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Tab, Qt::ShiftModifier);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Right);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Plus);
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_1);
+    qDebug() << "10: " << display->text();
+    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Enter);
+    qDebug() << "10: " << display->text();
+    if (display->text().toStdString().substr(0, 10) != "1.10000000") throw(runtime_error("10: composite operation"));
   } catch(exception &ex) {
     qDebug() << ex.what();
     qDebug() << "Test failed";
