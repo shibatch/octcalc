@@ -3,8 +3,10 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cctype>
+#include <cmath>
 
 #include "octcore.hpp"
+#include "rng.hpp"
 
 using namespace octcore;
 
@@ -29,6 +31,13 @@ namespace {
     return a;
   }
   tlfloat_octuple lcm(tlfloat_octuple x, tlfloat_octuple y) { return tlfloat_trunco(x) / gcd(x, y) * tlfloat_trunco(y); }
+
+  tlfloat_octuple rnd(tlfloat_octuple x) {
+    static TLCG64 lcg64;
+    if (x < 0 || x >= 0x1p+64) return NAN;
+    uint64_t u = (uint64_t)(tlfloat_uint128_t)x;
+    return tlfloat_uint128_t(u == 0 ? lcg64.next64() : lcg64.nextLT(u));
+  }
 
   struct Func {
     const int narg;
@@ -179,6 +188,7 @@ pair<string, tlfloat_octuple> OctCore::L0(Tokenizer& tk) {
     { "copysign", Func { 2, nullptr, tlfloat_copysigno, nullptr } }, { "fma", Func { 3, nullptr, nullptr, tlfloat_fmao } },
     { "ldexp", Func { 2, nullptr, ldexp_, nullptr } }, { "int", Func { 1, tlfloat_trunco, nullptr, nullptr } },
     { "gcd", Func { 2, nullptr, gcd, nullptr } }, { "lcm", Func { 2, nullptr, lcm, nullptr } }, 
+    { "rnd", Func { 1, rnd, nullptr, nullptr } },
   };
   static unordered_map<string, tlfloat_octuple> constMap = {
     { "M_E", TLFLOAT_M_Eo }, { "M_LOG2E", TLFLOAT_M_LOG2Eo }, { "M_LOG10E", TLFLOAT_M_LOG10Eo }, { "M_LN2", TLFLOAT_M_LN2o },

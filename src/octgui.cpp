@@ -330,7 +330,6 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["fmod"]->setText("rem");
     buttons["M_PI"]->setText("M_E");
     buttons["erf"]->setText("erfc");
-    buttons["gcd"]->setText("lcm");
     if (modeAlt) {
       buttons["License"]->setText("WEB");
       buttons["License"]->setIcon(octIcon);
@@ -345,6 +344,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["log10"]->setText("log1p");
       buttons["expm1"]->setText("expm1");
       buttons["tgamma"]->setText("tgamma");
+      buttons["gcd"]->setText("rnd");
       buttons["CE" ]->setText("AC");
       buttons["x"  ]->setText("w");
       buttons["="  ]->setText("*=");
@@ -360,6 +360,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["log10"]->setText("log10");
       buttons["expm1"]->setText("exp10");
       buttons["tgamma"]->setText("fabs");
+      buttons["gcd"]->setText("lcm");
       buttons["CE" ]->setText("CE");
       buttons["x"  ]->setText("y");
       buttons["="  ]->setText("+=");
@@ -371,7 +372,6 @@ void OctCalc::processButtonPress(const string &s) {
     buttons["fmod"]->setText("fmod");
     buttons["M_PI"]->setText("M_PI");
     buttons["erf"]->setText("erf");
-    buttons["gcd"]->setText("gcd");
     if (modeAlt) {
       buttons["License"]->setText("License");
       buttons["License"]->setIcon(QIcon());
@@ -384,6 +384,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["log10"]->setText("log2");
       buttons["expm1"]->setText("exp2");
       buttons["tgamma"]->setText("tgamma");
+      buttons["gcd"]->setText("rnd");
       buttons["CE" ]->setText("CE");
       buttons["x"  ]->setText("z");
       buttons["="  ]->setText("-=");
@@ -399,6 +400,7 @@ void OctCalc::processButtonPress(const string &s) {
       buttons["log10"]->setText("log");
       buttons["expm1"]->setText("exp");
       buttons["tgamma"]->setText("atan2");
+      buttons["gcd"]->setText("gcd");
       buttons["CE" ]->setText("CE");
       buttons["x"  ]->setText("x");
       buttons["="  ]->setText("=");
