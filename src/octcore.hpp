@@ -36,6 +36,8 @@ namespace octcore {
       str = str.substr(sp);
       lastpos = pos + sp;
 
+      if (str != "") ret = Token(string("character '") + str[0] + "'", "");
+
       for(auto a : tokenDefs) {
 	smatch m;
 	if (!regex_match(str, m, a.second)) continue;
