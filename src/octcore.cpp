@@ -35,7 +35,7 @@ namespace {
   tlfloat_octuple rnd(tlfloat_octuple x) {
     static TLCG64 lcg64;
     if (x < 0 || x >= 0x1p+64) return NAN;
-    uint64_t u = (uint64_t)(tlfloat_uint128_t)x;
+    uint64_t u = (uint64_t)x;
     return tlfloat_uint128_t(u == 0 ? lcg64.next64() : lcg64.nextLT(u));
   }
 

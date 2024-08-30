@@ -150,8 +150,8 @@ particular reason as to why it makes a particular contribution. In
 other words, a company needs an explanation of how its contribution
 will specifically benefit the company. However, most OSS products are
 not designed to benefit a specific company. OSS projects cannot be run
-solely by participants from companies that only care about their own
-convenience. It is not surprising that contributions made under a
+only by members who participate from companies who think only of their
+own convenience. It is not surprising that contributions made under a
 declaration that only contributions beneficial to a particular
 organization can be made are less appreciated.
 
@@ -183,27 +183,26 @@ to OSS projects, we can expect that there is little risk of companies
 completely ignoring it. A code of conduct is a set of rules that
 defines the normative behavior and responsibilities of individuals,
 parties, and groups. In other words, a code of conduct is a definition
-of the behaviors of participants that are desirable and undesirable
-for a project. By having each participant in the project agree to a
-code of conduct, the participants are made aware that certain
-behaviors are undesirable for the project. In other words,
-participants will not be able to openly engage in behavior that is
-undesirable for the project. Since a code of conduct is not legally
-binding, participants would be able to continue to participate in the
-project without agreeing to the code of conduct or while violating
-it. However, even in that case, the fact that a particular participant
-did not agree to or violated the code of conduct is visible. The
-purpose of having participants make a pledge not to engage in
-undesirable behavior is not to exclude participants who disagree or
-violate the code from the project, but to make other participants
-aware of it. This allows the "name and shame" approach to discourage
-participants from taking undesirable actions. If a particular
-participant engages in an undesirable behavior, other participants
-become aware of it, and the participant with the undesirable behavior
-is excluded from participation in the overall decision-making process
-of the project. In other words, participants with undesirable behavior
-will have difficulty participating in decision-making within the
-project. This assumes, of course, that participants do not lie.
+of the behaviors of members that are desirable and undesirable for a
+project. By having each member in the project agree to a code of
+conduct, the members are made aware that certain behaviors are
+undesirable for the project. In other words, members will not be able
+to openly engage in behavior that is undesirable for the
+project. Since a code of conduct is not legally binding, members would
+be able to continue to participate in the project without agreeing to
+the code of conduct or while violating it. However, even in that case,
+the fact that a particular member did not agree to or violated the
+code of conduct is visible. The purpose of having members make a
+pledge not to engage in undesirable behavior is not to exclude members
+who disagree or violate the code from the project, but to make other
+members aware of it. This allows the "name and shame" approach to
+discourage members from taking undesirable actions. If a particular
+member engages in an undesirable behavior, other members become aware
+of it, and the member with the undesirable behavior is excluded from
+participation in the overall decision-making process of the
+project. In other words, members with undesirable behavior will have
+difficulty participating in decision-making within the project. This
+assumes, of course, that members do not lie.
 
 
 ### How our guidelines work
@@ -213,20 +212,20 @@ code of conduct aiming to alleviate the burnout problems of OSS
 developers. Our guidelines use the nature of the code of conduct
 described above to discourage free-riding on OSS projects. Since a
 code of conduct defines desirable and undesirable behaviors of project
-participants, it is not possible to directly ask companies to comply
-with the code. Therefore, our guidelines ask participants representing
-a company to pledge that they will make effort to ensure that the
-company to which they belong does not free-ride. If a participant's
-company continues to free-ride, that participant can be regarded as
-not making sufficient efforts to ensure that the company does not
-free-ride. In addition, our guidelines do not require only that each
-company does not free-ride on projects that have adopted our
-guidelines, but also that they do not free-ride on OSS projects in
-general. As there becomes greater public awareness of the importance
-of discouraging free-riding in order to sustain OSS projects, it will
-become more difficult for companies to openly disagree with our
-guidelines. As more projects adopt our guidelines, we can expect that
-free-riding on OSS projects in general will be discouraged.
+members, it is not possible to directly ask companies to comply with
+the code. Therefore, our guidelines ask members representing a company
+to pledge that they will make effort to ensure that the company to
+which they belong does not free-ride. If a member's company continues
+to free-ride, that member can be regarded as not making sufficient
+efforts to ensure that the company does not free-ride. In addition,
+our guidelines do not require only that each company does not
+free-ride on projects that have adopted our guidelines, but also that
+they do not free-ride on OSS projects in general. As there becomes
+greater public awareness of the importance of discouraging free-riding
+in order to sustain OSS projects, it will become more difficult for
+companies to openly disagree with our guidelines. As more projects
+adopt our guidelines, we can expect that free-riding on OSS projects
+in general will be discouraged.
 
 Now, based on the above, will this scheme really work? What is most
 concerning is the part that although prohibiting commercial use of
@@ -239,10 +238,10 @@ license at this point. Distribution licenses are supposed to be
 legally binding, which is incompatible with asking licensees to take
 some action without legally binding them to do so. On the other hand,
 a code of conduct, by its very nature, only prescribes the desired
-behavior of project participants, not the conditions for the use of
-the software. The existence of a code of conduct makes it possible to
-check whether each participant is behaving in a way that is desirable
-for the project. If companies continue to free-ride on OSS, this will
+behavior of project members, not the conditions for the use of the
+software. The existence of a code of conduct makes it possible to
+check whether each member is behaving in a way that is desirable for
+the project. If companies continue to free-ride on OSS, this will
 become visible to the public and subject to social criticism. It would
 be a serious PR loss for a company if it were to make the news that
 the company gets disciplined in a prominent OSS project. Therefore, we
@@ -261,8 +260,8 @@ appropriateness of each decision made within the project. Transparency
 in project management would also have positive results in terms of
 ensuring diversity in the project.
 
-What our guidelines require is that each participant takes action to
-discourage free-riding. Thus, even if a participant's company is
+What our guidelines require is that each member takes action to
+discourage free-riding. Thus, even if a member's company is
 free-riding, that company will not be immediately denounced. A
 company's free-riding will only be brought to attention if it becomes
 a problem over some extended period of time. For companies, it is only
@@ -298,17 +297,18 @@ You might be wondering why our guidelines target only companies, even
 though individuals are also free-riding. This is due to the
 limitations of how our guidelines work. The basic stance of our
 guidelines is to request uniformly the same content regardless of
-whether the participant belongs to a company or not. This is because
+whether the member belongs to a company or not. This is because
 confusion arises in the definition of the terms if we try to
-distinguish between companies and individuals. If individual
-participants are asked to donate to the project, they would
-effectively be excluded from participating in the project. Thus, what
-individual participants can do to deter free-riding is to call out to
-their friends not to free-ride, which is practically nothing. If
-donations were collected from individual users in a thin and broad
-base, the total amount could be large. However, it would be too costly
-to track the amount of each individual user's donation, and it would
-be difficult to establish a practical mechanism for this purpose.
+distinguish between companies and individuals. If members
+participating as individuals were asked to donate to the project, they
+would effectively be excluded from participating in the project.
+Thus, all that a member participating as an individual can do to deter
+free-riding is to call out to their friends not to free-ride, which is
+effectively the same as doing nothing. If donations were collected
+from individual users in a thin and broad base, the total amount could
+be large. However, it would be too costly to track the amount of each
+individual user's donation, and it would be difficult to establish a
+practical mechanism for this purpose.
 
 You might also wonder whether educational and research institutions
 are also included in the scope of free-ride deterrence. It is
@@ -333,10 +333,10 @@ do the same with OSS maintenance, we will undoubtedly see terrible
 results. Because it is difficult to evaluate which OSS is useful,
 large amounts of taxpayer money will be spent on maintenance of
 software that no one has ever heard of. There is also a problem that
-it is difficult to coordinate among the countries to which the
-participants belong, since the development of OSS takes place across
-countries. By having companies fund software that is valuable to them,
-we can expect that truly valuable software will be funded.
+it is difficult to coordinate among the countries to which the members
+belong, since the development of OSS takes place across countries. By
+having companies fund software that is valuable to them, we can expect
+that truly valuable software will be funded.
 
 
 ## Positioning and purpose of the guidelines
@@ -352,12 +352,12 @@ there is no provision in the software distribution license prohibiting
 the removal of the guidelines in a derivative project, you can fork
 the project to remove the guidelines.
 
-The guidelines ask participants representing companies to pledge that
-they will make efforts to ensure that their companies do not engage in
-free-riding. However, this is nominal and participants are not
-actually asked to take any specific action. What actually matters is
-the attitude of the company to which the participant belongs, not the
-specific actions of the participant.
+The guidelines ask members representing companies to pledge that they
+will make efforts to ensure that their companies do not engage in
+free-riding. However, this is nominal and members are not actually
+asked to take any specific action. What actually matters is the
+attitude of the company to which the member belongs, not the specific
+actions of the member.
 
 
 ## The guidelines
@@ -386,11 +386,12 @@ and smooth discussions.
 
 * Project members strive to promote the awareness that it is natural
   for companies that make a profit from the commercial use of open
-  source or free software to make contribution commensurate with their
-  profit to relevant projects, where the purpose of the contribution
-  is for the project to serve society as a whole, not just particular
-  organizations. Here, contribution to a project refers to the
-  following items.
+  source or free software to make contribution commensurate with the
+  increased profits from the use of the software to relevant projects,
+  where the contribution is made in order for the project to serve
+  society as a whole. This contribution must not be biased to benefit
+  any specific organizations. On top of that, the contribution herein
+  refers to providing the following items.
 
   * Financial support
   * Contributing code or documentation
@@ -424,18 +425,22 @@ and smooth discussions.
 
 ### Maintaining transparency in project operations
 
-* Each participant in the project should disclose information
-  regarding his or her identity and affiliation when necessary to
-  carry out the project. If a project participant is asked to disclose
-  information regarding his or her identity and affiliation, an
-  explanation should be provided as to why such disclosure is
-  necessary for the execution of the project.
+* Each member in the project should disclose information regarding his
+  or her identity and affiliation when necessary to carry out the
+  project. In requesting disclosure of the identity and affiliation of
+  each member, an explanation should be given as to why this is
+  necessary to carry out the project.
 
 * In engaging in activities within the project, each member should
-  make an effort to explain the basis for decisions in a manner that
-  the general public can understand. If the basis for a decision
-  cannot be disclosed, the reason why it cannot be disclosed should be
-  explained as much as possible.
+  make an effort to disclose the basis for decisions in a manner that
+  the general public can see and understand.
+  * If the basis for a decision cannot be disclosed, the reason why it
+    cannot be disclosed should be explained as much as possible.
+  * If each member notices that the basis for a decision or the reason
+    why it cannot be disclosed has not been explained in the project,
+    the member should prompt the person who made the decision to
+    explain it, even if the matter is not directly related to the
+    member's own, or if it is a past matter.
 
 
 ### Keeping calm and logical discussion
@@ -452,9 +457,9 @@ and smooth discussions.
     time of the person's birth and cannot be changed)
   * Ideology or beliefs that are not relevant to the purpose of the
     project
-    * Whether or not each participant belongs to an antisocial group
-      or cult is always regarded as relevant to the purpose of the
-      project. The project may ban a participant who is found to be a
+    * Whether or not each member belongs to an antisocial group or
+      cult is always regarded as relevant to the purpose of the
+      project. The project may ban a member who is found to be a
       member of an anti-social organization or cult for the sole
       reason of his/her membership in such an organization.
   * Inequalities that existed in the past
@@ -481,3 +486,13 @@ and smooth discussions.
     privileges of the websites related to the project and basically
     what you cannot do is not possible for the maintainers either.
 
+
+### Not taking the guidelines as an absolute
+
+* Each member should understand that each item of these guidelines is
+  merely a means to achieve the objectives of the guidelines and to
+  respect basic human rights.
+  * Each member should always consider first how to achieve the
+    objectives of the guidelines and respect basic human rights, and
+    for this purpose, allow deviations from each item of these
+    guidelines.

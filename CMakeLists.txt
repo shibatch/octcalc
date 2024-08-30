@@ -6,7 +6,7 @@ option(INSTALL_QT "Install QT dlls when ENABLE_WIX is off (windows only)" OFF)
 
 set(OCTCALC_VERSION_MAJOR 0)
 set(OCTCALC_VERSION_MINOR 3)
-set(OCTCALC_VERSION_PATCHLEVEL 1)
+set(OCTCALC_VERSION_PATCHLEVEL 2)
 set(OCTCALC_VERSION ${OCTCALC_VERSION_MAJOR}.${OCTCALC_VERSION_MINOR}.${OCTCALC_VERSION_PATCHLEVEL})
 set(OCTCALC_SOVERSION ${OCTCALC_VERSION_MAJOR})
 
@@ -39,7 +39,7 @@ endif()
 
 set(TLFLOAT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/submodules/src/tlfloat")
 
-if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
+if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include/tlfloat/tlfloat.hpp")
   file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules/tlfloat")
   file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
   file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules/tlfloat/lib")
@@ -67,7 +67,7 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
     find_package(Git REQUIRED)
     ExternalProject_Add(ext_tlfloat
       GIT_REPOSITORY https://github.com/shibatch/tlfloat
-      GIT_TAG d3e42aeebbe42d49c929f8aa85e9074cfd04a2a6
+      GIT_TAG 8ce09543ae821e3d701666bb80b2bb711a3bc5bb
       SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
       CMAKE_ARGS ${ARGS}
       )
