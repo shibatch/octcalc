@@ -5,8 +5,8 @@ option(SUPPRESS_WIX_VALIDATION "Suppress validation in WiX" OFF)
 option(INSTALL_QT "Install QT dlls when ENABLE_WIX is off (windows only)" OFF)
 
 set(OCTCALC_VERSION_MAJOR 0)
-set(OCTCALC_VERSION_MINOR 3)
-set(OCTCALC_VERSION_PATCHLEVEL 4)
+set(OCTCALC_VERSION_MINOR 4)
+set(OCTCALC_VERSION_PATCHLEVEL 0)
 set(OCTCALC_VERSION ${OCTCALC_VERSION_MAJOR}.${OCTCALC_VERSION_MINOR}.${OCTCALC_VERSION_PATCHLEVEL})
 set(OCTCALC_SOVERSION ${OCTCALC_VERSION_MAJOR})
 
@@ -67,7 +67,7 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include/tlfloat/tlfloat
     find_package(Git REQUIRED)
     ExternalProject_Add(ext_tlfloat
       GIT_REPOSITORY https://github.com/shibatch/tlfloat
-      GIT_TAG 34adfdaa9a96e61b0278ece09939536ae5e4c1a3
+      GIT_TAG 2d20920f234dedf8ee080d9e0a7e097096bb77b0
       SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
       CMAKE_ARGS ${ARGS}
       )

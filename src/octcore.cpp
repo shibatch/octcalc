@@ -188,7 +188,8 @@ pair<string, tlfloat_octuple> OctCore::L0(Tokenizer& tk) {
     { "copysign", Func { 2, nullptr, tlfloat_copysigno, nullptr } }, { "fma", Func { 3, nullptr, nullptr, tlfloat_fmao } },
     { "ldexp", Func { 2, nullptr, ldexp_, nullptr } }, { "int", Func { 1, tlfloat_trunco, nullptr, nullptr } },
     { "gcd", Func { 2, nullptr, gcd, nullptr } }, { "lcm", Func { 2, nullptr, lcm, nullptr } }, 
-    { "rnd", Func { 1, rnd, nullptr, nullptr } },
+    { "rnd", Func { 1, rnd, nullptr, nullptr } }, { "tanpi", Func { 1, tlfloat_tanpio, nullptr, nullptr } },
+    { "sinpi", Func { 1, tlfloat_sinpio, nullptr, nullptr } }, { "cospi", Func { 1, tlfloat_cospio, nullptr, nullptr } },
   };
   static unordered_map<string, tlfloat_octuple> constMap = {
     { "M_E", TLFLOAT_M_Eo }, { "M_LOG2E", TLFLOAT_M_LOG2Eo }, { "M_LOG10E", TLFLOAT_M_LOG10Eo }, { "M_LN2", TLFLOAT_M_LN2o },
