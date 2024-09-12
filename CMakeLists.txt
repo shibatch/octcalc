@@ -6,7 +6,7 @@ option(INSTALL_QT "Install QT dlls when ENABLE_WIX is off (windows only)" OFF)
 
 set(OCTCALC_VERSION_MAJOR 0)
 set(OCTCALC_VERSION_MINOR 4)
-set(OCTCALC_VERSION_PATCHLEVEL 0)
+set(OCTCALC_VERSION_PATCHLEVEL 1)
 set(OCTCALC_VERSION ${OCTCALC_VERSION_MAJOR}.${OCTCALC_VERSION_MINOR}.${OCTCALC_VERSION_PATCHLEVEL})
 set(OCTCALC_SOVERSION ${OCTCALC_VERSION_MAJOR})
 
@@ -31,20 +31,23 @@ enable_testing()
 
 # Include submodules
 
+set(SUBMODULE_INSTALL_DIR "${CMAKE_BINARY_DIR}/submodules")
+
 include(ExternalProject)
 
 if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules")
   file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules")
 endif()
 
-set(TLFLOAT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/submodules/src/tlfloat")
+set(TLFLOAT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/submodules/tlfloat")
+set(TLFLOAT_INSTALL_DIR "${SUBMODULE_INSTALL_DIR}/tlfloat")
 
-if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include/tlfloat/tlfloat.hpp")
-  file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules/tlfloat")
-  file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
-  file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules/tlfloat/lib")
+if (NOT EXISTS "${TLFLOAT_INSTALL_DIR}/tlfloat/include")
+  file(MAKE_DIRECTORY "${SUBMODULE_INSTALL_DIR}/tlfloat")
+  file(MAKE_DIRECTORY "${SUBMODULE_INSTALL_DIR}/tlfloat/include")
+  file(MAKE_DIRECTORY "${SUBMODULE_INSTALL_DIR}/tlfloat/lib")
 
-  set(ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/submodules/tlfloat -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=False)
+  set(ARGS -DCMAKE_INSTALL_PREFIX=${TLFLOAT_INSTALL_DIR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=False)
 
   if (CMAKE_C_COMPILER)
     set(ARGS ${ARGS} -DCMAKE_C_COMPILER:PATH=${CMAKE_C_COMPILER})
@@ -67,7 +70,7 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include/tlfloat/tlfloat
     find_package(Git REQUIRED)
     ExternalProject_Add(ext_tlfloat
       GIT_REPOSITORY https://github.com/shibatch/tlfloat
-      GIT_TAG 34adfdaa9a96e61b0278ece09939536ae5e4c1a3
+      GIT_TAG c967360d7e8fb1eed12586c166223825cfdb6602
       SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
       CMAKE_ARGS ${ARGS}
       )
@@ -76,8 +79,8 @@ else()
   add_custom_target(ext_tlfloat ALL)
 endif()
 
-include_directories(BEFORE "${PROJECT_SOURCE_DIR}/submodules/tlfloat/include")
-link_directories("${PROJECT_SOURCE_DIR}/submodules/tlfloat/lib")
+include_directories(BEFORE "${TLFLOAT_INSTALL_DIR}/include")
+link_directories("${TLFLOAT_INSTALL_DIR}/lib")
 
 # Setup WIX
 
