@@ -34,53 +34,68 @@ enable_testing()
 set(SUBMODULE_INSTALL_DIR "${CMAKE_BINARY_DIR}/submodules")
 
 include(ExternalProject)
+include(FindPkgConfig)
 
 if (NOT EXISTS "${PROJECT_SOURCE_DIR}/submodules")
   file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/submodules")
 endif()
 
+# TLFloat
+
+set(TLFLOAT_MINIMUM_VERSION 1.8.0)
+set(TLFLOAT_GIT_TAG "4bd539839ccf4d442cf4bf3caf62564d63a7842a")
+
+#
+
 set(TLFLOAT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/submodules/tlfloat")
 set(TLFLOAT_INSTALL_DIR "${SUBMODULE_INSTALL_DIR}/tlfloat")
 
-if (NOT EXISTS "${TLFLOAT_INSTALL_DIR}/tlfloat/include")
-  file(MAKE_DIRECTORY "${SUBMODULE_INSTALL_DIR}/tlfloat")
-  file(MAKE_DIRECTORY "${SUBMODULE_INSTALL_DIR}/tlfloat/include")
-  file(MAKE_DIRECTORY "${SUBMODULE_INSTALL_DIR}/tlfloat/lib")
+set(TLFLOAT_CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${TLFLOAT_INSTALL_DIR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=False)
 
-  set(ARGS -DCMAKE_INSTALL_PREFIX=${TLFLOAT_INSTALL_DIR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=False)
+if (CMAKE_C_COMPILER)
+  list(APPEND TLFLOAT_CMAKE_ARGS -DCMAKE_C_COMPILER:PATH=${CMAKE_C_COMPILER})
+endif()
 
-  if (CMAKE_C_COMPILER)
-    set(ARGS ${ARGS} -DCMAKE_C_COMPILER:PATH=${CMAKE_C_COMPILER})
-  endif()
+if (CMAKE_CXX_COMPILER)
+  list(APPEND TLFLOAT_CMAKE_ARGS -DCMAKE_CXX_COMPILER:PATH=${CMAKE_CXX_COMPILER})
+endif()
 
-  if (CMAKE_CXX_COMPILER)
-    set(ARGS ${ARGS} -DCMAKE_CXX_COMPILER:PATH=${CMAKE_CXX_COMPILER})
-  endif()
+if (CMAKE_TOOLCHAIN_FILE)
+  list(APPEND TLFLOAT_CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE})
+endif()
 
-  if (CMAKE_TOOLCHAIN_FILE)
-    set(ARGS ${ARGS} -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE})
-  endif()
+if (EXISTS "${TLFLOAT_SOURCE_DIR}/CMakeLists.txt")
+  # If the source code of tlfloat is already downloaded, use it
+  ExternalProject_Add(ext_tlfloat
+    SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
+    CMAKE_ARGS ${TLFLOAT_CMAKE_ARGS}
+    )
+  include_directories(BEFORE "${TLFLOAT_INSTALL_DIR}/include")
+  link_directories("${TLFLOAT_INSTALL_DIR}/lib")
+else()
+  pkg_search_module(TLFLOAT tlfloat)
 
-  if (EXISTS "${TLFLOAT_SOURCE_DIR}/CMakeLists.txt")
-    ExternalProject_Add(ext_tlfloat
-      SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
-      CMAKE_ARGS ${ARGS}
-      )
+  if (TLFLOAT_FOUND AND TLFLOAT_VERSION VERSION_GREATER_EQUAL TLFLOAT_MINIMUM_VERSION)
+    # If tlfloat is installed on the system
+    add_custom_target(ext_tlfloat ALL)
+    include_directories(BEFORE "${TLFLOAT_INCLUDE_DIRS}")
+    link_directories("${TLFLOAT_LIBDIR}")
+    message(STATUS "Found installed TLFloat " ${TLFLOAT_VERSION})
   else()
+    # Otherwise, download the source code
     find_package(Git REQUIRED)
     ExternalProject_Add(ext_tlfloat
       GIT_REPOSITORY https://github.com/shibatch/tlfloat
-      GIT_TAG c967360d7e8fb1eed12586c166223825cfdb6602
+      GIT_TAG "${TLFLOAT_GIT_TAG}"
       SOURCE_DIR "${TLFLOAT_SOURCE_DIR}"
-      CMAKE_ARGS ${ARGS}
+      CMAKE_ARGS ${TLFLOAT_CMAKE_ARGS}
       )
+
+    include_directories(BEFORE "${TLFLOAT_INSTALL_DIR}/include")
+    link_directories("${TLFLOAT_INSTALL_DIR}/lib")
   endif()
-else()
-  add_custom_target(ext_tlfloat ALL)
 endif()
 
-include_directories(BEFORE "${TLFLOAT_INSTALL_DIR}/include")
-link_directories("${TLFLOAT_INSTALL_DIR}/lib")
 
 # Setup WIX
 
