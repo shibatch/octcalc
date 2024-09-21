@@ -79,7 +79,7 @@ else()
     # If tlfloat is installed on the system
     add_custom_target(ext_tlfloat ALL)
     include_directories(BEFORE "${TLFLOAT_INCLUDE_DIRS}")
-    link_directories("${TLFLOAT_LIBDIR}")
+    link_directories(BEFORE "${TLFLOAT_LIBDIR}")
     message(STATUS "Found installed TLFloat " ${TLFLOAT_VERSION})
   else()
     # Otherwise, download the source code
@@ -92,7 +92,7 @@ else()
       )
 
     include_directories(BEFORE "${TLFLOAT_INSTALL_DIR}/include")
-    link_directories("${TLFLOAT_INSTALL_DIR}/lib")
+    link_directories(BEFORE "${TLFLOAT_INSTALL_DIR}/lib")
   endif()
 endif()
 
