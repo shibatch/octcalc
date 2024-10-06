@@ -41,7 +41,7 @@ pipeline {
 		}
 
                 stage('x86_64 linux clang-18') {
-            	     agent { label 'x86_64 && ubuntu22' }
+            	     agent { label 'x86_64 && ubuntu24' }
                      options { skipDefaultCheckout() }
             	     steps {
                          cleanWs()
@@ -61,16 +61,16 @@ pipeline {
             	     }
                 }
 
-                stage('x86_64 linux gcc-11') {
-            	     agent { label 'x86_64 && ubuntu22' }
+                stage('x86_64 linux gcc-13') {
+            	     agent { label 'x86_64 && ubuntu24' }
                      options { skipDefaultCheckout() }
             	     steps {
                          cleanWs()
                          checkout scm
 	    	     	 sh '''
                 	 echo "x86_64 gcc-11 on" `hostname`
-			 export CC=gcc-11
-			 export CXX=g++-11
+			 export CC=gcc-13
+			 export CXX=g++-13
 			 rm -rf build
  			 mkdir build
 			 cd build
