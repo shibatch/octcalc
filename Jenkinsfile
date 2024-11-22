@@ -62,13 +62,13 @@ pipeline {
                 }
 
                 stage('x86_64 linux gcc-13') {
-            	     agent { label 'x86_64 && ubuntu24' }
+            	     agent { label 'x86_64 && ubuntu24 && yubikey' }
                      options { skipDefaultCheckout() }
             	     steps {
                          cleanWs()
                          checkout scm
 	    	     	 sh '''
-                	 echo "x86_64 gcc-11 on" `hostname`
+                	 echo "x86_64 gcc-13 on" `hostname`
 			 export CC=gcc-13
 			 export CXX=g++-13
 			 rm -rf build
