@@ -9,12 +9,13 @@ Original distribution site : https://github.com/shibatch/octcalc
 
 ### Introduction
 
-This is a programmer-friendly, portable calculator application, which
-runs on Windows, Linux, and Mac. It can evaluate C-like mathematical
-expressions in 256-bit floating-point numbers. Output formats include
-integers and floating point numbers in decimal and hexadecimal,
-respectively. In addition to the math functions in math.h, various
-bitwise operations can be performed.
+This is a programmer-friendly portable calculator application, which
+runs on Windows, Linux, and Mac. It can evaluate C-like expressions in
+256-bit floating-point numbers through
+[TLFloat](https://github.com/shibatch/tlfloat) library. It allows
+users to choose between decimal and hexadecimal output formats for
+integers and floating point numbers. In addition to the math functions
+in math.h, various bitwise operations can be performed.
 
 
 ### Building on Linux and Mac
