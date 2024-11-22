@@ -82,16 +82,16 @@ pipeline {
             	     }
                 }
 
-                stage('aarch64 linux gcc-11') {
-            	     agent { label 'aarch64 && ubuntu22' }
+                stage('aarch64 linux gcc-14') {
+            	     agent { label 'aarch64 && ubuntu24' }
                      options { skipDefaultCheckout() }
             	     steps {
                          cleanWs()
                          checkout scm
 	    	     	 sh '''
-                	 echo "aarch64 gcc-11 on" `hostname`
-			 export CC=gcc-11
-			 export CXX=g++-11
+                	 echo "aarch64 gcc-14 on" `hostname`
+			 export CC=gcc-14
+			 export CXX=g++-14
 			 rm -rf build
  			 mkdir build
 			 cd build

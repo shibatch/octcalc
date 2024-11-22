@@ -285,7 +285,7 @@ void OctCalc::processButtonPress(const string &s) {
   } else if (s == "License") {
     QDesktopServices::openUrl(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + "/../share/octcalc/licenses.txt"));
   } else if (s == "WEB") {
-    QDesktopServices::openUrl(QUrl("https://github.com/shibatch/octcalc", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("https://shibatch.github.io/", QUrl::TolerantMode));
   } else if (s == "BS") {
     if (selectionStart == -1) {
       if (cursorPos > 0) {
