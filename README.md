@@ -9,10 +9,12 @@ Original distribution site : https://github.com/shibatch/octcalc
 
 ### Introduction
 
-This is a portable calculator application that runs on Windows, Linux,
-and Mac.  It can perform calculations and output results in 256-bit
-floating point numbers.  It can also evaluate C-like mathematical
-expressions.
+This is a programmer-friendly, portable calculator application, which
+runs on Windows, Linux, and Mac. It can evaluate C-like mathematical
+expressions in 256-bit floating-point numbers. Output formats include
+integers and floating point numbers in decimal and hexadecimal,
+respectively. In addition to the math functions in math.h, various
+bitwise operations can be performed.
 
 
 ### Building on Linux and Mac
@@ -69,6 +71,7 @@ Contributions to this project are accepted under the same license.
 The fact that this software is released under an open source license
 only means that you can use the current version of the software for
 free. If you want this software to be maintained, you need to
-financially support the project.
+financially support the project. Please see
+[CODE_OF_CONDUCT.md](https://github.com/shibatch/nofreelunch?tab=coc-ov-file).
 
-Copyright Naoki Shibata 2024.
+Copyright [Naoki Shibata](https://shibatch.github.io/) 2024.
